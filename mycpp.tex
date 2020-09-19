@@ -2,11 +2,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern,footnote, url}
+\usepackage{lmodern,footnote, url, hyperref}
 \usepackage[a4paper, margin=1in]{geometry}
 \usepackage{minted}
 
-\newcommand{\blue}[1]{\textcolor{blue}{#1}}
 \newcommand{\be}[1]{\textcolor{blue}{#1}}
 
 \large
@@ -14,6 +13,7 @@
 \author{Leanne Dong}
 \begin{document}
 	\maketitle
+	\tableofcontents
 \section{The Basics}
 \begin{itemize}
 	\item Programs
@@ -30,7 +30,7 @@ The set of C++ build-in types\footnote{types that can be built from the fundamen
 
 \subsubsection{Strutures}
 
-The first step is building a new type is to putting elements we need into a data structure, a \blue{struct}:
+The first step is building a new type is to putting elements we need into a data structure, a \be{struct}:
 
 \begin{minted}{c++}
 struct Vector {
@@ -38,11 +38,11 @@ struct Vector {
     double* elem; // pointer to elements
 };	
 \end{minted}
-The first version of \blue{Vector} consists of an \blue{int} and a \blue{double*}. A variable of type \blue{Vector} can be defined as 
+The first version of \be{Vector} consists of an \be{int} and a \be{double*}. A variable of type \be{Vector} can be defined as 
 \begin{minted}{c++}
 	Vector v;
 \end{minted}
-However, by itself that is not of much use because v's elem pointer doesn't point to anything. For it to be useful, we must give \blue{v} some elements to point to. For instance, construct a \blue{Vector} like
+However, by itself that is not of much use because v's elem pointer doesn't point to anything. For it to be useful, we must give \be{v} some elements to point to. For instance, construct a \be{Vector} like
 \begin{minted}{c++}
 void vector_init(Vector& v, int s)
 {
@@ -50,12 +50,12 @@ void vector_init(Vector& v, int s)
     v.sz = s;
 }	
 \end{minted}
-That is, \blue{v}'s \blue{elem} member gets a pointer produced by the \blue{new} operator, and \blue{v}'s \blue{sz} member gets the number of elements. The \blue{\&} in \blue{Vector\&} indicates that we pass \blue{v} by non-\blue{const} ref, so that \blue{vector\_init()} can modify the vector passed to it.
+That is, \be{v}'s \be{elem} member gets a pointer produced by the \be{new} operator, and \be{v}'s \be{sz} member gets the number of elements. The \be{\&} in \be{Vector\&} indicates that we pass \be{v} by non-\be{const} ref, so that \be{vector\_init()} can modify the vector passed to it.
 
 The \be{new} operator allocates memory from \emph{free store} (also known as \emph{dynamic memory, or heap} ).
 Object allocated on the free store are independent of the scopt from which they are created and live until they are destroyed using the \be{delete} operator.
 
-A simple implementation of \blue{Vector} could be 
+A simple implementation of \be{Vector} could be 
 \begin{minted}{c++}
 double read_and_sum(int s)
 // read s integers from cin and return their sum, s is //assumed to be positive
@@ -80,12 +80,12 @@ int main()
     read_and_sum(10);
 }	
 \end{minted}
-There was a long to go from above to the elegant \blue{std::vector}.
+There was a long to go from above to the elegant \be{std::vector}.
 
 Compiler Explorer: \url{https://godbolt.org/z/vjEMeP}
 
-We use \blue{.}(dot) to access \blue{struct} members through a name (and through a reference) and \blue{->} to access 
-\blue{struct} members through a pointer. For instance
+We use \be{.}(dot) to access \be{struct} members through a name (and through a reference) and \be{->} to access 
+\be{struct} members through a pointer. For instance
 
 \begin{minted}{c++}
 void f(Vector v, Vector& rv, Vector* pv)
@@ -129,7 +129,7 @@ has advantages. Now we will establish a tighter connection between the represent
 \begin{enumerate}
 	\item The interface
 	\item A type (to be used by all)
-	\item The implementation of the type (which has access to th eotherwise inaccessible data)
+	\item The implementation of the type (which has access to the otherwise inaccessible data)
 \end{enumerate}
 The is the so-called class. Class provides greater level of abstractions compared to struct.The interface is defined by the \be{public} member of a class, and \be{private} members are accessible only through that interface. For instance,
 \begin{minted}{c++}
@@ -156,6 +156,33 @@ The is the so-called class. Class provides greater level of abstractions compare
 % }
 % \end{minted}
 
+\section{Modularity}
+
+\section{Classes}
+
+\section{Essential Operations}
+
+\section{Templates}
+
+\section{Concepts and Generic Programming}
+
+\section{Library Overview}
+
+\section{String and Regular Expression}
+
+\section{Input and Output}
+
+\section{Containers}
+
+\section{Algorithms}
+
+\section{Utilities}
+
+\section{Numerics}
+
+\section{Concurrency}
+
+\section{History and Compatibility}
 
 \end{document}
 
