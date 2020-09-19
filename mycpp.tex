@@ -7,6 +7,7 @@
 \usepackage{minted}
 
 \newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\be}[1]{\textcolor{blue}{#1}}
 
 \large
 \title{A review of Bjarne's small book}
@@ -51,6 +52,9 @@ void vector_init(Vector& v, int s)
 \end{minted}
 That is, \blue{v}'s \blue{elem} member gets a pointer produced by the \blue{new} operator, and \blue{v}'s \blue{sz} member gets the number of elements. The \blue{\&} in \blue{Vector\&} indicates that we pass \blue{v} by non-\blue{const} ref, so that \blue{vector\_init()} can modify the vector passed to it.
 
+The \be{new} operator allocates memory from \emph{free store} (also known as \emph{dynamic memory, or heap} ).
+Object allocated on the free store are independent of the scopt from which they are created and live until they are destroyed using the \be{delete} operator.
+
 A simple implementation of \blue{Vector} could be 
 \begin{minted}{c++}
 double read_and_sum(int s)
@@ -78,7 +82,7 @@ int main()
 \end{minted}
 There was a long to go from above to the elegant \blue{std::vector}.
 
-Comiler Explorer: \url{https://godbolt.org/z/vjEMeP}
+Compiler Explorer: \url{https://godbolt.org/z/vjEMeP}
 
 We use \blue{.}(dot) to access \blue{struct} members through a name (and through a reference) and \blue{->} to access 
 \blue{struct} members through a pointer. For instance
@@ -120,7 +124,20 @@ int main()
 Compiler explorer: \url{https://godbolt.org/z/noea68}
 
 \subsubsection{Classes}
-Class provides greater level of abstractions compared to struct.
+From the \be{struct} example we see that having the data specified separately from the operations on it 
+has advantages. Now we will establish a tighter connection between the representation and the operations for a user-defined type to have all the properties of a `real type'. Specifically, we should keep representation inaccessible to users so as to ease use, ensure consistent use of the data, and allow us to later improve the representation. To this end, we need to distinguish
+\begin{enumerate}
+	\item The interface
+	\item A type (to be used by all)
+	\item The implementation of the type (which has access to th eotherwise inaccessible data)
+\end{enumerate}
+The is the so-called class. Class provides greater level of abstractions compared to struct.The interface is defined by the \be{public} member of a class, and \be{private} members are accessible only through that interface. For instance,
+\begin{minted}{c++}
+	class Vector {
+	
+	
+	}
+\end{minted}
 \subsubsection{Unions}
 
 \subsubsection{Unions}
