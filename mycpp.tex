@@ -1,0 +1,156 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,footnote, url}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{minted}
+
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+\large
+\title{A review of Bjarne's small book}
+\author{Leanne Dong}
+\begin{document}
+	\maketitle
+% \begin{titlepage}
+% 	\begin{center}
+%     \line(1,0){300}\\
+%     [0.65cm]
+% 	\huge{\bfseries Assignment II}\\
+% 	\line(1,0){300}\\
+% 	\textsc{\Large C++ Course Part III}\\
+% 	\textsc{\LARGE \today}\\
+% 	[5.5cm]
+% 	\end{center}
+% 	\begin{flushright}
+% 		\textsc{\Large T.T. Veldman\\S2754401}\\
+% 		[0.5cm]
+% 		\textsc{\Large L. Wester\\S2755351}\\
+% 		[0.5cm]
+% 	\end{flushright}
+% \end{titlepage}
+\section{The Basics}
+\begin{itemize}
+	\item Programs
+	\item Functions
+	\item Types, Variables and Arithmetic
+	\item Scope and Lifetime
+	\item Constants
+	\item Pointers, arrays and References
+	\item Tests
+	\item Mapping to Hardware
+\end{itemize}
+\section{User-defined type}
+The set of C++ build-in types\footnote{types that can be built from the fundamental types, the const modifier, and the declarator operator} and operations is rich, but deliberately low-level. The directly and efficiently reflect the capabilities of conventional computer hardware. However, they don't provide programmers with high-level facilities to write advanced applications easily. To overcome this, C++ augments the built-in types and operations with a sophisticated set of abstraction mechanisms out of which programmers can build such high-level facilities.
+
+\subsubsection{Strutures}
+
+The first step is building a new type is to putting elements we need into a data structure, a \blue{struct}:
+
+\begin{minted}{c++}
+struct Vector {
+    int sz;    // number of elements
+    double* elem; // pointer to elements
+};	
+\end{minted}
+The first version of \blue{Vector} consists of an \blue{int} and a \blue{double*}. A variable of type \blue{Vector} can be defined as 
+\begin{minted}{c++}
+	Vector v;
+\end{minted}
+However, by itself that is not of much use because v's elem pointer doesn't point to anything. For it to be useful, we must give \blue{v} some elements to point to. For instance, construct a \blue{Vector} like
+\begin{minted}{c++}
+void vector_init(Vector& v, int s)
+{
+    v.elem = new double[s];
+    v.sz = s;
+}	
+\end{minted}
+That is, \blue{v}'s \blue{elem} member gets a pointer produced by the \blue{new} operator, and \blue{v}'s \blue{sz} member gets the number of elements. The \blue{\&} in \blue{Vector\&} indicates that we pass \blue{v} by non-\blue{const} ref, so that \blue{vector\_init()} can modify the vector passed to it.
+
+A simple implementation of \blue{Vector} could be 
+\begin{minted}{c++}
+double read_and_sum(int s)
+// read s integers from cin and return their sum, s is //assumed to be positive
+{
+    Vector v;
+    vector_init(v, s); // allocate s elements for v
+    for (int i = 0; i!=s; ++i)
+    {
+        std::cin >> v.elem[i]; // read into elements
+    }
+    double sum = 0;
+    for (int i = 0; i!=s; ++i)
+    {
+        sum+=v.elem[i];
+    }
+    std::cout << sum << " \n";
+    return sum;
+}
+
+int main()
+{
+    read_and_sum(10);
+}	
+\end{minted}
+There was a long to go from above to the elegant \blue{std::vector}.
+
+Now another example from Herb's talk.
+\begin{minted}{c++}
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+struct User {
+    std::string name;
+    int age;
+};
+
+std::vector<User> users = { {"Cat", 3}, {"Fish", 5} };
+
+int main()
+{
+    auto sort_by_age = [] (auto& lhs, auto& rhs)
+    {
+        return lhs.age < rhs.age;
+    };
+
+    std::sort(users.begin(), users.end(), sort_by_age);
+}
+\end{minted}
+Compiler explorer: \url{https://godbolt.org/z/noea68}
+
+\subsubsection{Classes}
+
+\subsubsection{Unions}
+
+\subsubsection{Unions}
+
+\subsubsection{Enumerations}
+% \section*{Exercise 1}
+% \subsection*{main.cpp}
+% \begin{minted}[frame=lines, linenos, fontsize=\large]
+% {c++}
+% #include "header.ih"
+%
+% int main()
+% {
+%     fn1();
+%     fn2();
+% }
+% \end{minted}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
