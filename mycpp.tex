@@ -36,7 +36,7 @@
 \section{User-defined type}
 The set of C++ build-in types\footnote{types that can be built from the fundamental types, the const modifier, and the declarator operator} and operations is rich, but deliberately low-level. The directly and efficiently reflect the capabilities of conventional computer hardware. However, they don't provide programmers with high-level facilities to write advanced applications easily. To overcome this, C++ augments the built-in types and operations with a sophisticated set of abstraction mechanisms out of which programmers can build such high-level facilities.
 
-\subsubsection{Strutures}
+\subsubsection{Structures}
 
 The first step is building a new type is to putting elements we need into a data structure, a \be{struct}:
 
@@ -141,11 +141,59 @@ has advantages. Now we will establish a tighter connection between the represent
 \end{enumerate}
 The is the so-called class. Class provides greater level of abstractions compared to struct.The interface is defined by the \be{public} member of a class, and \be{private} members are accessible only through that interface. For instance,
 \begin{minted}{c++}
-	class Vector {
-	
-	
-	}
+class Vector {
+public:
+Vector(int s) :elem{new double[s]}, sz(s) { } //construct a vector
+double& operator[] (int i) { return elem[i]; } //element access via subscripting
+int size() { return sz; }
+
+private:
+double* elem; // the pointers to the elements
+int sz;       // the number of elements	
+}
 \end{minted}
+Let us now define a variable of our new type \be{Vector}:
+\begin{minted}{c++}
+	Vector v(6); // a Vector with 6 elements
+\end{minted}
+Intuitively, the \be{Vector} object is a placeholder containing a pointer to the elements (\be{elem}) and the number of elements (\be{sz}). The number of elements can vary from \be{Vector} object to \be{Vector} object, and one particular \be{Vector} object can have a different number of elements at different times which we shall see soon. However, the \be{Vector} object itself is always the same size.\footnote{There are two different meaning of `size' here, the first one is the size indicated by the \be{sz} member (\be{v.sz}), which can vary; The second one is the size of the Vector type (\be{sizeof(v)}), i.e. the size of pointer and an integer.\href{https://godbolt.org/z/PM6437}{example 1} and \href{https://godbolt.org/z/GsW74s}{example 2}. Note in the 2nd example that, \be{sizeof(V3)} is different from what one might expect, due to the padding introduced for the purpose of the alignment. Note also that, do not assume that the size of a type is just the sum of the sizes of its members.} This is the fundamental building blocks for handling varying amounts of information in C++. Later on, we will discuss the design and usage of such objects.
+
+Here, the representation of a \be{Vector} (the member variables \be{elem} and \be{sz}) is accessible only through the interface provided by public members: \be{Vector()}, \be{operator[]()} and \be{size()}. The \be{read\_and\_sum()} example introduced earlier simplifies to 
+\begin{minted}{c++}
+double read_and_sum(int s)
+// read s integers from cin and return their sum, s is assumed to be positive
+{
+    Vector v(6); // make a vector of s elements
+    for (int i = 0; i!=v.size(); ++i)
+    {
+        std::cin >> v[i]; // read into elements
+    }
+    double sum = 0;
+    for (int i = 0; i!=s; ++i)
+    {
+        sum+=v[i];
+    }
+    std::cout << sum << " \n";
+    return sum;
+}	
+\end{minted}
+A member ``function'' with the same name as its class is called a \emph{constructor}, that is, a function used to construct objects of a class. So, the constructor \be{Vector()} replaces \be{vector\_init()} earlier. Unlike an ordinary function, a constructor is guaranteed to be used to initialize objects of its class. Hence, defining a constructor eliminates the problem of uninitialized variables for a class.
+
+\be{Vector(int)} defines how objects of type \be{Vector} are constructed by explicitly stating that it needs an integer to do so. The integer is used as the number of elements. The constructor initializes the \be{Vector} members using a member initializer list:
+\begin{minted}{c++}
+	:elem{new double[s]}, sz(s)
+\end{minted}
+Here it says, we first initialize \be{elem} with a pointer to \be{s} elements of type \be{double} obtained from the free store. Then we initialize \be{sz} to \be{s}. The subscript function \be{operator[]} allows us to access elements. It returns a reference to the appropriate element (a \be{double\&} allowing both reading and writing).
+
+The \be{size()} function provides the users with the number of elements.
+
+Clearly, several aspects are missing.
+\begin{enumerate}
+	\item Error handling
+	\item A lack of mechanism to return the array of doubles acquired by \be{new}. Shortly, we will show how to use \be{destructor} does this.
+\end{enumerate}
+There is no fundamental difference between a \be{struct} and a \be{class}; a \be{struct} is simply a \be{class} with members \be{public} by default. For instance, one can define constructors and member functions inside \be{struct}.
+ The implementation of the discussed example is at 
 \href{https://godbolt.org/z/E6M64s}{Compiler Explorer}
 \subsubsection{Unions}
 
