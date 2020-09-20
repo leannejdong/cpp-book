@@ -38,7 +38,7 @@
 \section{User-defined type}
 The set of C++ build-in types\footnote{types that can be built from the fundamental types, the const modifier, and the declarator operator} and operations is rich, but deliberately low-level. The directly and efficiently reflect the capabilities of conventional computer hardware. However, they don't provide programmers with high-level facilities to write advanced applications easily. To overcome this, C++ augments the built-in types and operations with a sophisticated set of abstraction mechanisms out of which programmers can build such high-level facilities.
 
-\subsubsection{Structures}
+\subsection{Structures}
 
 The first step is building a new type is to putting elements we need into a data structure, a \be{struct}:
 
@@ -133,7 +133,7 @@ int main()
 \end{minted}
 \href{https://godbolt.org/z/noea68}{Compiler Explorer}
 
-\subsubsection{Classes}
+\subsection{Classes}
 From the \be{struct} example we see that having the data specified separately from the operations on it 
 has advantages. Now we will establish a tighter connection between the representation and the operations for a user-defined type to have all the properties of a `real type'. Specifically, we should keep representation inaccessible to users so as to ease use, ensure consistent use of the data, and allow us to later improve the representation. To this end, we need to distinguish
 \begin{enumerate}
@@ -197,10 +197,10 @@ Clearly, several aspects are missing.
 There is no fundamental difference between a \be{struct} and a \be{class}; a \be{struct} is simply a \be{class} with members \be{public} by default. For instance, one can define constructors and member functions inside \be{struct}.
  The implementation of the discussed example is at 
 \href{https://godbolt.org/z/E6M64s}{Compiler Explorer}
-\subsubsection{Unions}
+\subsection{Unions}
 
 
-\subsubsection{Enumerations}
+\subsection{Enumerations}
 % \section*{Exercise 1}
 % \subsection*{main.cpp}
 % \begin{minted}[frame=lines, linenos, fontsize=\large]
