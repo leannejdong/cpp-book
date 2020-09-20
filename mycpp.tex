@@ -25,7 +25,7 @@
 \section{The Basics}
 \begin{itemize}
 	\item Programs
-	\item Functions
+	\item Functions and control flows
 	\item Types, Variables and Arithmetic
 	\item Scope and Lifetime
 	\item Constants
@@ -33,6 +33,8 @@
 	\item Tests
 	\item Mapping to Hardware
 \end{itemize}
+
+\href{https://gcc.godbolt.org/z/bah4zM}{Iteration}
 \section{User-defined type}
 The set of C++ build-in types\footnote{types that can be built from the fundamental types, the const modifier, and the declarator operator} and operations is rich, but deliberately low-level. The directly and efficiently reflect the capabilities of conventional computer hardware. However, they don't provide programmers with high-level facilities to write advanced applications easily. To overcome this, C++ augments the built-in types and operations with a sophisticated set of abstraction mechanisms out of which programmers can build such high-level facilities.
 
@@ -197,7 +199,6 @@ There is no fundamental difference between a \be{struct} and a \be{class}; a \be
 \href{https://godbolt.org/z/E6M64s}{Compiler Explorer}
 \subsubsection{Unions}
 
-\subsubsection{Unions}
 
 \subsubsection{Enumerations}
 % \section*{Exercise 1}
@@ -221,6 +222,12 @@ There is no fundamental difference between a \be{struct} and a \be{class}; a \be
 
 \section{Templates}
 
+\subsection{Lambda}
+Lambdas come up when we would like to write programs that utilize unnamed function objects. The following snippet shows how a lambda is defined in C++ source code. The syntax for a lambda is as follows:
+\begin{minted}{c++}
+	[](){};
+\end{minted}
+The braces represent the capture block. A lambda uses a block to capture existing variables to be used in the lambda. 
 \section{Concepts and Generic Programming}
 
 \section{Library Overview}
