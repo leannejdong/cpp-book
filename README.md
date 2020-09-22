@@ -6,4 +6,8 @@ My summary is a combination of the following books:
 
 * " C++20 Recipes A Problem-Solution approach "  by Bruce Sutherland
 
+* Thoughts from various programmers I met.
+
+* Examples are provided with links to compiler explorer
+
 
