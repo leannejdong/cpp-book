@@ -12,7 +12,7 @@
 	linktoc = all,
 }
 \usepackage[a4paper, margin=1in]{geometry}
-\usepackage{minted}
+\usepackage{minted, multicol}
 
 \newcommand{\be}[1]{\textcolor{blue}{#1}}
 
@@ -219,6 +219,43 @@ There is no fundamental difference between a \be{struct} and a \be{class}; a \be
 \section{Classes}
 
 \section{Essential Operations}
+\subsection{Copy and Move}
+
+\subsection{Resource Management}
+Garbage collection is fundamentally a global memory management scheme.
+
+Before resorting to garbage collection, one should systematically use resource handles, that is, we let each resource have an owner in some scope and by default be released at the end of its owners scope. This is the so-called RAII in C++. RAII stands for Resource Acquisition Is Initialization and is integrated with error handling with error handling in the form of exception. Under RAII, we can move resource from scope to scope via move semantics or smart pointers, and shared ownership can be done with ``shared pointers''.
+
+Here is an example, 
+
+\begin{multicols}{2}
+    \begin{minted}{c++}
+	//Without RAII
+	  try
+	  {
+	    auto x = make_unique<X>(Stuff);
+	    // risky stuff
+	  }
+	  catch (exception& e)
+	  {
+	  	//react
+	  }
+	  
+	// RAII  
+	  try
+	  {
+	    auto x = new X(Stuff);
+	    // risky stuff
+		delete x;
+	  }
+	  catch (exception& e)
+	  {
+	  	//react
+	  }
+    \end{minted}
+\end{multicols}
+
+RAII is used a lot in C++ standard library. For instance, memory (\be{string}, \be{vector}, \be{map}, \be{unordered\_map}etc., files(\be{ifstream}, \be{ofstream}, etc.), threads (\be{thread}), locks (\be{lock\_guard}, \be{unique\_lock}, etc), and general objects (through \be{unique\_ptr} and \be{shared\_ptr}). The results is implicit resource management that is invisible in common use and leads to low resource retention durations.
 
 \section{Templates}
 
