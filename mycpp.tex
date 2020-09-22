@@ -279,6 +279,15 @@ The braces represent the capture block. A lambda uses a block to capture existin
 
 \section{Utilities}
 
+\subsection{Resource Management}
+
+\subsubsection{\be{unique\_ptr} and \be{shared\_ptr} }
+In \be{<memory>}, the standard library provides two smart pointers to help manage objects on the free store. Namely, 
+\begin{enumerate}
+	\item \be{unique\_ptr} to represent unique ownership
+	\item \be{shared\_ptr} to represent shared ownership
+\end{enumerate}
+\href{https://godbolt.org/z/nooEzP}{Example of \be{unique\_ptr}}
 \section{Numerics}
 
 \section{Concurrency}
