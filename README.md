@@ -1,4 +1,4 @@
-# Summary from various C++ books
+# Book summary and thoughts on C++
 
 My summary is a combination of the following books:
 
