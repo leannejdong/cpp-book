@@ -10,6 +10,6 @@ My summary is a combination of the following books:
 
 * Examples are provided with links to compiler explorer
 
-To compile, you can either use a Makefile or with latexmk via the command `latexmk --shell -escape -pvc -pdf mycpp.tex`.
+To compile, you can either use a Makefile or with latexmk via the command `latexmk --shell-escape -pvc -pdf mycpp.tex`.
 
 (If you are using Make, please make sure you read the Makefile and choose the correct pdf viewer.) 
